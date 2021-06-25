@@ -4,6 +4,8 @@
 <head>
     <style>
         body{
+            background-color: antiquewhite;
+            text-align: center;
         }
         .navbar {
             overflow: hidden;
@@ -18,11 +20,9 @@
             padding: 14px 16px;
             text-decoration: none;
         }
-        /* Add a red background color to navbar links on hover */
         .navbar a:hover, .dropdown:hover .dropbtn {
             background-color: gray;
         }
-        /* Add a grey background color to dropdown links on hover */
         .dropdown-content a:hover {
             background-color: #ddd;
         }
@@ -36,8 +36,8 @@
     <a href="../" >Strona główna</a>
     <a href="./" >Cofnij</a>
 </div>
-<p>HOTEL OBOK POLITECHNIKI BYDGOSKIEJ</p>
-<p>LISTA POKOJÓW:</p>
+<b><h1>HOTEL OBOK POLITECHNIKI BYDGOSKIEJ</h1></b>
+<b><p>LISTA POKOJÓW:</p></b>
 <table bgcolor="silver" align="center">
     <thead>
     <tr>
@@ -46,7 +46,7 @@
         <th> Pokój przyjazny zwierzakom: </th>
         <th> Palenie tytoniu: </th>
         <th> Prywatny parking: </th>
-        <th> Widok z okna </th>
+        <th> Widok z okna: </th>
     </tr>
     </thead>
     <tbody>
@@ -58,7 +58,7 @@
         <td th:text="${room.isCanSmoke()}"></td>
         <td th:text="${room.isParking()}"></td>
         <td th:text="${room.isPrettyViewFromWindow()}"></td>
-        <!--<td><a th:href="@{'/listCars/'+ ${samochod.idSamochod}}"><button>Wypożycz</button></a></td>-->
+        <td><a th:href="@{'/reservation/'+ ${room.getRoomId()}}"><button>Wypożycz</button></a></td>
         <!--<td><input type="submit" value="Wypożycz"></td>-->
     </tr>
     <!--</form>-->

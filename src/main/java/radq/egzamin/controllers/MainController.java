@@ -6,6 +6,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import radq.egzamin.entity.Room;
 import radq.egzamin.repo.RoomRepo;
 import radq.egzamin.services.ServiceRap;
@@ -15,6 +16,7 @@ public class MainController {
 
     @Autowired
     private final RoomRepo roomRepo;
+
     private final ServiceRap serviceRap;
     public MainController(RoomRepo roomRepo, ServiceRap serviceRap) {
         this.roomRepo = roomRepo;
@@ -46,6 +48,13 @@ public class MainController {
     public String reservationList(Model model, Room room){
         model.addAttribute("rooms", serviceRap.getAllRooms());
         return "reservation";
+    }
+
+    @GetMapping("/reservation/{id}")
+    public String detailedInformation(Model model, @PathVariable Long id)
+    {
+        model.addAttribute("room",roomRepo.findById(id).get());
+        return "reserv";
     }
 
 }

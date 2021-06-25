@@ -11,21 +11,22 @@ public class Room {
     private Long roomId;
 
     //private RoomType type;
-    int people; //ile osób
+    public int people; //ile osób
 
     @OneToMany
-    private List<Reservation> reservationList;
+    public List<Reservation> reservationList;
 
-    private int price;
-    private boolean available;
+    public int price;
+    public boolean available;
 
     //dodatkowe rzeczy
-    private boolean petsFriendly;
-    private boolean canSmoke;
-    private boolean parking; //miejsce parkingowe dla konkretnego pokoju
-    private boolean prettyViewFromWindow; //okno z widokem
+    public boolean petsFriendly;
+    public boolean canSmoke;
+    public boolean parking; //miejsce parkingowe dla konkretnego pokoju
+    public boolean prettyViewFromWindow; //okno z widokem
 
-    private void setAvailable(LocalDate firstDay, LocalDate LastDay){
+    //na podstawie rezerwacji w bazie danych sprawdza, czy pokój jest w dniu dzisiejszym dostępny
+    public void setAvailable(LocalDate firstDay, LocalDate LastDay){
         this.available = this.reservationList.stream()
                 .anyMatch(reservation -> reservation.getStartDate()
                                 .isBefore(firstDay) && reservation.getEndDate().isAfter(LastDay));
