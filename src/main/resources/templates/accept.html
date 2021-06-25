@@ -29,21 +29,30 @@
 
     </style>
     <meta charset="UTF-8">
-    <title>REZERWACJA POKOJU</title>
+    <title>STRONA GLOWNA</title>
 </head>
 <body>
 <div class="navbar">
     <a href="../" >Strona główna</a>
     <a href="./" >Cofnij</a>
 </div>
-<b><h1>Wybierz datę w której zamierzasz do nas przyjechać, a my zajmiemy się resztą!</h1></b>
-<form th:action="@{'/date'}" th:object="${reservation}" method="post">
-<p>Data rezerwacji: <input type="date" min="2021-06-25" th:field="*{startDate}"></p>
-<p>Data oddania pokoju: <input type="date" min="2021-06-26" th:field="*{endDate}" ></p>
-<button type="submit">
-    Sprawdź twoją ofertę!
-</button>
+<b><h1>Informacje dotyczace wybranego pokoju: </h1></b>
+<p>Pokoj nr: <span th:text="${room.getRoomId()}"/></p>
+<p>Ilosc lozek: <span th:text="${room.getPeople()}"/></p>
+<p>Cena/24h: <span th:text="${room.getPrice()}"/></p>
+<p>Cena całkowita: TODO PLN</p>
+<form th:action="@{'/reservation/' + ${room.getRoomId()}}" th:object="${reservation}" method="post">
+    <p>Potwierdz date rezerwacji</p>
+    <p>Data rezerwacji: <input type="date" min="2021-06-25" th:field="*{startDate}"></p>
+    <p>Data oddania pokoju: <input type="date" min="2021-06-26" th:field="*{endDate}" ></p>
+    <p>Podaj e-mail</p>
+    <input th:type="text" th:name="*{email}">
+    <p>Podaj imie</p>
+    <input th:type="text" th:name="*{firstName}">
+    <p>Podaj nazwisko</p>
+    <input th:type="text" th:name="*{lastName}">
+    <br>
+<button type="submit">Czy zgadasz sie na rezerwacje?</button>
 </form>
-
 </body>
 </html>

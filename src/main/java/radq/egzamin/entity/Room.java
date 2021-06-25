@@ -9,6 +9,7 @@ import java.util.List;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="room_id")
     private Long roomId;
 
     //private RoomType type;
@@ -33,6 +34,7 @@ public class Room {
                                 .isBefore(firstDay) && reservation.getEndDate().isAfter(LastDay));
         //System.out.println(firstDay);
         //System.out.println(LastDay);
+        System.out.println(reservationList);
     }
 
     public Room() {

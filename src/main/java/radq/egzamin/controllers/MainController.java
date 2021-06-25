@@ -3,11 +3,10 @@ package radq.egzamin.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import radq.egzamin.entity.Reservation;
 import radq.egzamin.entity.Room;
 import radq.egzamin.repo.ReservationRepo;
@@ -62,15 +61,31 @@ public class MainController {
         model.addAttribute("rooms", serviceRap.getAllRooms());
         return "reservation";
     }
-    //TODO wyswietlanie po wybraniu daty urlopu
-   // @GetMapping("/reservation")
 
     @GetMapping("/reservation/{id}")
-    public String detailedInformation(Model model, @PathVariable Long id)
+    public String detailedInformation(Model model, @PathVariable Long id, Room room, Reservation reservation)
     {
+        //model.addAttribute("roomId",roomRepo.findById(id).get());
         model.addAttribute("room",roomRepo.findById(id).get());
-        return "reserv";
+        model.addAttribute("reservation", reservation);
+        //Reservation reservation1 = new Reservation(reservation.)
+        reservationRepo.save(reservation);
+        return "accept";
     }
+
+   /* @RequestMapping("/add")
+    public String addKlient(
+            @RequestParam(name = "email") String email,
+            @RequestParam(name = "firstName") String firstName,
+            @RequestParam(name = "lastName") String lastName,
+            @RequestParam(name = "startDate") LocalDate startDate,
+            @RequestParam(name = "endDate") LocalDate endDate,
+            @RequestParam(name = "room") Long room,
+            Model model
+    ){//LocalDate startDate, LocalDate endDate, String email, String firstName, String lastName, Room room
+        reservationRepo.save(new Reservation(email,firstName,lastName, startDate,endDate))
+                return
+    } */
 
     @GetMapping("/date")
     public String dateUrlop(Model model, Reservation reservation){
@@ -79,14 +94,16 @@ public class MainController {
         return "reserv";
     }
 
-    /*@PostMapping("/date")
+ //Cannot invoke "java.time.chrono.ChronoLocalDate.toEpochDay()" because "other" is null
+   /* @PostMapping("/date")
     public String dateUrlops(Model model, LocalDate firstDate, LocalDate lastDate)
     {
-        model.addAttribute("rooms", serviceRap.getAvailableRooms(firstDate, lastDate));
+        model.addAttribute("reservation", serviceRap.getAvailableRooms(firstDate, lastDate));
         System.out.println(firstDate);
         System.out.println(lastDate);
         return "reservation";
     } */
+
    @PostMapping("/date")
    public String dateUrlops(Model model, Reservation reservation)
    {
@@ -95,6 +112,10 @@ public class MainController {
        System.out.println(reservation.endDate);
        return "reservation";
    }
+
+
+
+
 
 
 }
