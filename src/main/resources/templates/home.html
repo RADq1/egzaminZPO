@@ -4,8 +4,19 @@
 <head>
     <style>
         body{
+            /*background-image: url("..\src\main\resources\static\image\zdj1.jpg");*/
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            text-align: center;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            flex-direction: column;
             background-color: antiquewhite;
             text-align: center;
+            font-family: Myriad Pro;
         }
         .navbar {
             overflow: hidden;
@@ -26,6 +37,15 @@
         .dropdown-content a:hover {
             background-color: #ddd;
         }
+        .images
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+
 
     </style>
     <meta charset="UTF-8">
@@ -38,5 +58,20 @@
     <a href="./" >Cofnij</a>
 </div>
 <b><h1>HOTEL OBOK POLITECHNIKI BYDGOSKIEJ</h1></b>
+<p>Posiadamy 5 najlepszych apartamentów w Bydgoszczy!</p>
+<div class="images">
+    <div>
+        <img th:src="@{image/zdj1.jpg}" width="300" height="300">
+        <img th:src="@{image/zdj2.jpg}" width="300" height="300">
+    </div>
+    <div>
+        <img th:src="@{image/zdj3.jpg}" width="300" height="300">
+    </div>
+    <div>
+    <img th:src="@{image/zdj4.jpg}" width="300" height="300">
+    <img th:src="@{image/zdj5.jpg}" width="300" height="300">
+    </div>
+
+</div>
 </body>
 </html>

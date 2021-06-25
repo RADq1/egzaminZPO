@@ -26,34 +26,44 @@ public class ServiceRap {
         return rooms;
     }
 
+    //wyliczenie sumy pieniedzy dla danego dnia
     public int getMoney(LocalDate day){
-        return this.roomRepo.findAll().stream()
-                .filter(room -> {
-                    room.setAvailable(day,day);
-                    return room.isAvailable();
+        return this.roomRepo.findAll().stream() //wyszukujemy wszystkie pokoje
+                .filter(room -> { //filtrujemy po spelnionym warunku
+                    room.setAvailable(day,day); //ustawiamy czy na dany dzien pokoj jest dostepny
+                    return !room.isAvailable(); //patrzymy tylko na zajete
                 })
-                .map(room -> room.getPrice())
-                .reduce(0, Integer::sum);
+                .map(room -> room.getPrice()) //zmiana typu z listy pokoi na liste intów
+                .reduce(0, Integer::sum); //sumujemy
     }
 
+    /*//wyciaganie listy dostepnych pokoi
     public List<Room> getAvailableRooms(LocalDate firstDate, LocalDate lastDate){
         List <Room> availableRooms = this.roomRepo.findAll().stream()
-                .filter(room -> {
-                    room.setAvailable(firstDate, lastDate);
-                    return room.isAvailable();
+                .filter(room -> { //wyszukujemy tylko te, ktore spelniaja warunek
+                    room.setAvailable(firstDate, lastDate); //ustawiamy, czy na dane dni pokoj jest dostepny
+                    return room.isAvailable(); //wyciagamy tylko wolne pokoje
+                })
+                .collect(Collectors.toList());
+        availableRooms.forEach(x-> System.out.println(x.getRoomId()));
+        return availableRooms;
+    }*/
+
+    //wyciaganie listy dostepnych pokoi
+    public List<Room> getAvailableRooms(LocalDate firstDate, LocalDate lastDate, int people, boolean petsFriendly, boolean canSmoke, boolean parking, boolean prettyViewFromWindow){
+        List <Room> availableRooms = this.roomRepo.findAll().stream()
+                .filter(room -> room.isPetsFriendly() == petsFriendly)
+                .filter(room -> room.isPrettyViewFromWindow() == prettyViewFromWindow)
+                .filter(room -> room.isParking() == parking)
+                .filter(room -> room.isCanSmoke() == canSmoke)
+                .filter(room -> room.getPeople() == people)
+                .filter(room -> { //wyszukujemy tylko te, ktore spelniaja warunek
+                    room.setAvailable(firstDate, lastDate); //ustawiamy, czy na dane dni pokoj jest dostepny
+                    return room.isAvailable(); //wyciagamy tylko wolne pokoje
                 })
                 .collect(Collectors.toList());
         availableRooms.forEach(x-> System.out.println(x.getRoomId()));
         return availableRooms;
     }
 
-
-    /*public boolean isDateFree(LocalDate from, LocalDate to, Room room)
-    {
-        return reservationRepo.findAll().stream()
-                .filter(fr -> fr.getRoom().equals(room))
-                .filter(re -> re.getEndDate().compareTo(from)>0)
-                .filter(ne -> ne.getStartDate().compareTo(to)<0)
-                .anyMatch(fr -> fr.getRoom().equals(room));
-    } */
 }

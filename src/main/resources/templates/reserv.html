@@ -6,6 +6,7 @@
         body{
             background-color: antiquewhite;
             text-align: center;
+            font-family: Myriad Pro;
         }
         .navbar {
             overflow: hidden;
@@ -34,6 +35,7 @@
 <body>
 <div class="navbar">
     <a href="../" >Strona główna</a>
+    <a href="reservation">Lista wszystkich pokoi</a>
     <a href="./" >Cofnij</a>
 </div>
 <b><h1>Wybierz datę w której zamierzasz do nas przyjechać, a my zajmiemy się resztą!</h1></b>
@@ -42,6 +44,22 @@
 <p>Data oddania pokoju: <input type="date" min="2021-06-26" th:field="*{endDate}" ></p>-->
 <p>Data rezerwacji: <input type="date" min="2021-06-25" name="startDateString"></p>
 <p>Data oddania pokoju: <input type="date" min="2021-06-26" name="endDateString" ></p>
+    <p>Liczba miejsc/łóżek w pokoju: </p>
+    <select th:object="${room}" th:field="*{people}">
+        <option th:value="2">2</option>
+        <option th:value="3">3</option>
+        <option th:value="4">4</option>
+        <option th:value="6">6</option>
+    </select>
+    <p>Piekny widok z okna</p>
+    <input type="checkbox" th:object="${room}" th:field="*{prettyViewFromWindow}">
+    <p>Przyjazne zwierzętom</p>
+    <input type="checkbox" th:object="${room}" th:field="*{petsFriendly}">
+    <p>Mozna palić tytoń</p>
+    <input type="checkbox" th:object="${room}" th:field="*{canSmoke}">
+    <p>Parking prywatny</p>
+    <input type="checkbox" th:object="${room}" th:field="*{parking}">
+    <br>
 <button type="submit">
     Sprawdź twoją ofertę!
 </button>

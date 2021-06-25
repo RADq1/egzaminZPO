@@ -35,19 +35,30 @@ public class MainController {
     {
         Room room1 = new Room(6, 100, true, true, true, true, true);
         Room room2 = new Room(4, 60, true, true, false, false, false);
-        Room room3 = new Room(3, 40, true, true, false, false, false);
+        Room room3 = new Room(3, 40, true, true, false, false, true);
         Room room4 = new Room(4, 50, true, true, false, true, false);
         Room room5 = new Room(2, 30, true, false, false, false, false);
+        Room room6 = new Room(2, 40, true, true, false, true, false);
+        Room room7 = new Room(4, 55, true, false, false, false, false);
+        Room room8 = new Room(4, 55, true, false, false, false, false);
+        Room room9 = new Room(6, 85, true, true, true, true, true);
+        Room room10 = new Room(2, 55, true, true, true, true, true);
         roomRepo.save(room1);
         roomRepo.save(room2);
         roomRepo.save(room3);
         roomRepo.save(room4);
         roomRepo.save(room5);
+        roomRepo.save(room6);
+        roomRepo.save(room7);
+        roomRepo.save(room8);
+        roomRepo.save(room9);
+        roomRepo.save(room10);
 
-        Reservation reservation1 = new Reservation(LocalDate.now().minusDays(3), LocalDate.now().plusDays(2), "1998radq@gmail.com", "Radosław", "Gackowski", room2);
+
+        /* Reservation reservation1 = new Reservation(LocalDate.now().minusDays(3), LocalDate.now().plusDays(2), "1998radq@gmail.com", "Radosław", "Gackowski", room2);
         Reservation reservation2 = new Reservation(LocalDate.now().minusDays(7), LocalDate.now().plusDays(7), "1998radq@gmail.com", "Radosław", "Gackowski", room3);
 
-        /*reservationRepo.save(reservation1);
+       reservationRepo.save(reservation1);
         reservationRepo.save(reservation2); */
     }
 
@@ -79,8 +90,9 @@ public class MainController {
 
 
     @GetMapping("/date")
-    public String dateUrlop(Model model, Reservation reservation){
+    public String dateUrlop(Model model, Reservation reservation, Room room){
         //model.addAttribute("reservation", reservation);
+        model.addAttribute("room", room);
         return "reserv";
     }
 
@@ -106,11 +118,12 @@ public class MainController {
    } */
    @PostMapping("/date")
    public String dateUrlops(Model model, @RequestParam String startDateString,
-                            @RequestParam String endDateString)
-   {
+                            @RequestParam String endDateString, Room room)
+   {//LocalDate firstDate, LocalDate lastDate, int people, boolean petsFriendly, boolean canSmoke, boolean parking, boolean prettyViewFromWindow
+       model.addAttribute("room", room);
        LocalDate startDate = LocalDate.parse(startDateString);
        LocalDate endDate = LocalDate.parse(endDateString);
-       List<Room> rooms = serviceRap.getAvailableRooms(startDate, endDate);
+       List<Room> rooms = serviceRap.getAvailableRooms(startDate, endDate, room.getPeople(), room.isPetsFriendly(), room.isCanSmoke(), room.isParking(),room.isPrettyViewFromWindow());
        model.addAttribute("rooms", rooms);
        return "reservation";
    }
