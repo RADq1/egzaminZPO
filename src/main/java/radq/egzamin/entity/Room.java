@@ -16,7 +16,7 @@ public class Room {
     public int people; //ile osób
 
     @OneToMany(mappedBy = "room")
-    public List<Reservation> reservationList = new ArrayList<>();
+    public List<Reservation> reservationList;
 
     public int price;
     public boolean available;
@@ -129,4 +129,5 @@ public class Room {
     public void setPrettyViewFromWindow(boolean prettyViewFromWindow) {
         this.prettyViewFromWindow = prettyViewFromWindow;
     }
+
 }

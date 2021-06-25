@@ -3,6 +3,7 @@ package radq.egzamin.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import radq.egzamin.entity.Room;
+import radq.egzamin.repo.ReservationRepo;
 import radq.egzamin.repo.RoomRepo;
 
 import java.time.LocalDate;
@@ -14,8 +15,10 @@ public class ServiceRap {
 
     @Autowired
     private final RoomRepo roomRepo;
-    public ServiceRap(RoomRepo roomRepo) {
+    private final ReservationRepo reservationRepo;
+    public ServiceRap(RoomRepo roomRepo,ReservationRepo reservationRepo) {
         this.roomRepo = roomRepo;
+        this.reservationRepo = reservationRepo;
     }
 
     public List<Room> getAllRooms(){
@@ -40,5 +43,14 @@ public class ServiceRap {
                     return room.isAvailable();
                 })
                 .collect(Collectors.toList());
+    }
+
+    public boolean isDateFree(LocalDate from, LocalDate to, Room room)
+    {
+        return reservationRepo.findAll().stream()
+                .filter(fr -> fr.getRoom().equals(room))
+                .filter(re -> re.getEndDate().compareTo(from)>0)
+                .filter(ne -> ne.getStartDate().compareTo(to)<0)
+                .anyMatch(fr -> fr.getRoom().equals(room));
     }
 }

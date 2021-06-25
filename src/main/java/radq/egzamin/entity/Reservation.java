@@ -83,4 +83,12 @@ public class Reservation {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 }

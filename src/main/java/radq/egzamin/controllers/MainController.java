@@ -45,8 +45,8 @@ public class MainController {
         Reservation reservation1 = new Reservation(LocalDate.now().minusDays(3), LocalDate.now().plusDays(2), "1998radq@gmail.com", "Radosław", "Gackowski", room2);
         Reservation reservation2 = new Reservation(LocalDate.now().minusDays(7), LocalDate.now().plusDays(7), "1998radq@gmail.com", "Radosław", "Gackowski", room3);
 
-        reservationRepo.save(reservation1);
-        reservationRepo.save(reservation2);
+        /*reservationRepo.save(reservation1);
+        reservationRepo.save(reservation2); */
     }
 
 
@@ -67,9 +67,10 @@ public class MainController {
     {
         //model.addAttribute("roomId",roomRepo.findById(id).get());
         model.addAttribute("room",roomRepo.findById(id).get());
+        //reservation.setRoom(room);
+        //reservationRepo.save(reservation);
         model.addAttribute("reservation", reservation);
-        //Reservation reservation1 = new Reservation(reservation.)
-        reservationRepo.save(reservation);
+
         return "accept";
     }
 
@@ -105,9 +106,11 @@ public class MainController {
     } */
 
    @PostMapping("/date")
-   public String dateUrlops(Model model, Reservation reservation)
+   public String dateUrlops(Model model, Reservation reservation, Room room)
    {
+
        model.addAttribute("reservation", serviceRap.getAvailableRooms(reservation.startDate, reservation.endDate));
+       //model.addAttribute("reservation", serviceRap.isDateFree(reservation.startDate, reservation.endDate, room));
        System.out.println(reservation.startDate);
        System.out.println(reservation.endDate);
        return "reservation";
