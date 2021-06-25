@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import radq.egzamin.entity.Reservation;
 import radq.egzamin.entity.Room;
 import radq.egzamin.repo.ReservationRepo;
@@ -55,11 +56,14 @@ public class MainController {
         return "home";
     }
 
+    //wyswietlanie wszystkich pokoi
     @GetMapping("/reservation")
     public String reservationList(Model model, Room room){
         model.addAttribute("rooms", serviceRap.getAllRooms());
         return "reservation";
     }
+    //TODO wyswietlanie po wybraniu daty urlopu
+   // @GetMapping("/reservation")
 
     @GetMapping("/reservation/{id}")
     public String detailedInformation(Model model, @PathVariable Long id)
@@ -73,6 +77,13 @@ public class MainController {
 
         model.addAttribute("reservation", reservation);
         return "reserv";
+    }
+
+    @PostMapping("/date")
+    public String dateUrlops(Model model, LocalDate firstDate, LocalDate lastDate)
+    {
+        model.addAttribute("reservation", serviceRap.getAvailableRooms(firstDate, lastDate));
+        return "reservation";
     }
 
 
