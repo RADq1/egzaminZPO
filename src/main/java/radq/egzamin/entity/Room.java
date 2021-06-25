@@ -2,6 +2,7 @@ package radq.egzamin.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,8 +14,8 @@ public class Room {
     //private RoomType type;
     public int people; //ile osób
 
-    @OneToMany
-    public List<Reservation> reservationList;
+    @OneToMany(mappedBy = "room")
+    public List<Reservation> reservationList = new ArrayList<>();
 
     public int price;
     public boolean available;

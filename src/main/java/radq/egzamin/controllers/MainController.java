@@ -7,20 +7,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import radq.egzamin.entity.Reservation;
 import radq.egzamin.entity.Room;
+import radq.egzamin.repo.ReservationRepo;
 import radq.egzamin.repo.RoomRepo;
 import radq.egzamin.services.ServiceRap;
+
+import java.time.LocalDate;
 
 @Controller
 public class MainController {
 
     @Autowired
     private final RoomRepo roomRepo;
-
+    private final ReservationRepo reservationRepo;
     private final ServiceRap serviceRap;
-    public MainController(RoomRepo roomRepo, ServiceRap serviceRap) {
+    public MainController(RoomRepo roomRepo, ServiceRap serviceRap, ReservationRepo reservationRepo) {
         this.roomRepo = roomRepo;
         this.serviceRap = serviceRap;
+        this.reservationRepo = reservationRepo;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -36,6 +41,8 @@ public class MainController {
         roomRepo.save(room3);
         roomRepo.save(room4);
         roomRepo.save(room5);
+
+        Reservation reservation1 = new Reservation(LocalDate.now().minusDays(3), LocalDate.now(), "1998radq@gmail.com", "Radosław", "Gackowski", 1 );
     }
 
 

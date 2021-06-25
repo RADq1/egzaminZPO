@@ -1,5 +1,7 @@
 package radq.egzamin.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -10,25 +12,28 @@ public class Reservation {
     private long id;
 
 
-    @ManyToOne
-    private Room room;
+    public LocalDate startDate;
+    public LocalDate endDate;
+    public String email;
+    public String firstName;
+    public String lastName;
 
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String email;
-    private String firstName;
-    private String lastName;
+    @ManyToOne
+    @JoinColumn(name = "roomId")
+    public Room room;
 
     public Reservation() {
     }
 
-    public Reservation(LocalDate startDate, LocalDate endDate, String email, String firstName, String lastName) {
+    public Reservation(LocalDate startDate, LocalDate endDate, String email, String firstName, String lastName, Room room) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.room = room;
     }
+
 
     public long getId() {
         return id;
