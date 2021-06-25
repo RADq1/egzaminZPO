@@ -1,2 +1,3 @@
 # egzaminZPO
- egzamin 25.06
+
+egzamin 25.06
