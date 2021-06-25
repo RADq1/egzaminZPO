@@ -42,7 +42,11 @@ public class MainController {
         roomRepo.save(room4);
         roomRepo.save(room5);
 
-        Reservation reservation1 = new Reservation(LocalDate.now().minusDays(3), LocalDate.now(), "1998radq@gmail.com", "Radosław", "Gackowski", 1 );
+        Reservation reservation1 = new Reservation(LocalDate.now().minusDays(3), LocalDate.now(), "1998radq@gmail.com", "Radosław", "Gackowski", room2);
+        Reservation reservation2 = new Reservation(LocalDate.now().minusDays(7), LocalDate.now().plusDays(7), "1998radq@gmail.com", "Radosław", "Gackowski", room3);
+
+        reservationRepo.save(reservation1);
+        reservationRepo.save(reservation2);
     }
 
 
