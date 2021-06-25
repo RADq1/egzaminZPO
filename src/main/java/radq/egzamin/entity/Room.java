@@ -27,7 +27,7 @@ public class Room {
     public boolean parking; //miejsce parkingowe dla konkretnego pokoju
     public boolean prettyViewFromWindow; //okno z widokem
 
-    //na podstawie rezerwacji w bazie danych sprawdza, czy pokój jest w dniu dzisiejszym dostępny
+   /* //na podstawie rezerwacji w bazie danych sprawdza, czy pokój jest w dniu dzisiejszym dostępny
     public void setAvailable(LocalDate firstDay, LocalDate LastDay){
         this.available = this.reservationList.stream()
                 .anyMatch(reservation -> reservation.getStartDate()
@@ -35,7 +35,17 @@ public class Room {
         //System.out.println(firstDay);
         //System.out.println(LastDay);
         System.out.println(reservationList);
-    }
+    } */
+   public void setAvailable(LocalDate firstDay, LocalDate LastDay){
+       this.available = this.reservationList.stream()
+               .anyMatch(reservation -> (firstDay.isBefore(reservation.getStartDate()) &&
+                               LastDay.isBefore((reservation.getStartDate())) ||
+                               (firstDay.isAfter(reservation.getEndDate()) &&
+                                       LastDay.isAfter(reservation.getEndDate()))));
+       //System.out.println(firstDay);
+       //System.out.println(LastDay);
+       System.out.println(reservationList);
+   }
 
     public Room() {
     }

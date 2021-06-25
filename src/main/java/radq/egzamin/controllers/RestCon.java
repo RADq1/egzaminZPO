@@ -44,7 +44,24 @@ public class RestCon {
     {
         Room room = roomRepo.findById(roomId).get();
         reservation.setRoom(room);
-        reservationRepo.save(reservation);
+        reservation = reservationRepo.save(reservation);
+        room.getReservationList().add(reservation);
+        roomRepo.save(room);
         return true;
     }
+
+    //test algorytmu 1
+    @PostMapping ("/test/{id}/{start}/{end}")
+    public boolean reservationList(@PathVariable(name = "id")Long id,
+                                   @PathVariable(name = "start") String start,
+                                   @PathVariable(name = "start") String end){
+
+        Room room = roomRepo.findById(id).get();
+        room.setAvailable(LocalDate.parse(start), LocalDate.parse(end));
+        //System.out.println(room);
+        System.out.println(room.isAvailable());
+        return true;
+
+    }
+
 }

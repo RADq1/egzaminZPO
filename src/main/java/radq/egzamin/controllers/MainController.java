@@ -59,6 +59,7 @@ public class MainController {
     @GetMapping("/reservation")
     public String reservationList(Model model, Room room){
         model.addAttribute("rooms", serviceRap.getAllRooms());
+
         return "reservation";
     }
 
