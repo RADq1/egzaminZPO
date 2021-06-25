@@ -68,4 +68,13 @@ public class MainController {
         return "reserv";
     }
 
+    @GetMapping("/date")
+    public String dateUrlop(Model model, Reservation reservation){
+
+        model.addAttribute("reservation", reservation);
+        return "reserv";
+    }
+
+
+
 }

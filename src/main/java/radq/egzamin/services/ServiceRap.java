@@ -23,8 +23,6 @@ public class ServiceRap {
         return rooms;
     }
 
-
-
     public int getMoney(LocalDate day){
         return this.roomRepo.findAll().stream()
                 .filter(room -> {
