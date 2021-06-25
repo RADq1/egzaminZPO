@@ -1,9 +1,6 @@
 package radq.egzamin.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -12,7 +9,9 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //TODO RELACJA DO ROOM
+
+    @ManyToOne
+    private Room room;
 
     private LocalDate startDate;
     private LocalDate endDate;

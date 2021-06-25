@@ -10,7 +10,7 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomId;
 
-    private RoomType type;
+    //private RoomType type;
     private int people; //ile osób
 
     @OneToMany
@@ -34,6 +34,16 @@ public class Room {
     public Room() {
     }
 
+    public Room(int people, int price, boolean available, boolean petsFriendly, boolean canSmoke, boolean parking, boolean prettyViewFromWindow) {
+        this.people = people;
+        this.price = price;
+        this.available = available;
+        this.petsFriendly = petsFriendly;
+        this.canSmoke = canSmoke;
+        this.parking = parking;
+        this.prettyViewFromWindow = prettyViewFromWindow;
+    }
+
     public Long getRoomId() {
         return roomId;
     }
@@ -42,13 +52,13 @@ public class Room {
         this.roomId = roomId;
     }
 
-    public RoomType getType() {
+   /* public RoomType getType() {
         return type;
     }
 
     public void setType(RoomType type) {
         this.type = type;
-    }
+    } */
 
     public int getPeople() {
         return people;
