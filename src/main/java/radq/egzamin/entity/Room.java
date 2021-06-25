@@ -31,6 +31,8 @@ public class Room {
         this.available = this.reservationList.stream()
                 .anyMatch(reservation -> reservation.getStartDate()
                                 .isBefore(firstDay) && reservation.getEndDate().isAfter(LastDay));
+        //System.out.println(firstDay);
+        //System.out.println(LastDay);
     }
 
     public Room() {

@@ -11,8 +11,9 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate endDate;
     public String email;
     public String firstName;
