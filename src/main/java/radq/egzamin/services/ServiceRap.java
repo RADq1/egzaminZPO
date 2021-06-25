@@ -24,16 +24,15 @@ public class ServiceRap {
     }
 
 
-    //TODO ALGORYTM ZYSKÓW NA DZIEN
+
     public int getMoney(LocalDate day){
         return this.roomRepo.findAll().stream()
                 .filter(room -> {
                     room.setAvailable(day,day);
-                    return !room.isAvailable();
+                    return room.isAvailable();
                 })
                 .map(room -> room.getPrice())
                 .reduce(0, Integer::sum);
-
     }
 
     public List<Room> getAvailableRooms(LocalDate firstDate, LocalDate lastDate){
