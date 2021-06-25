@@ -11,7 +11,7 @@ public class Room {
     private Long roomId;
 
     //private RoomType type;
-    private int people; //ile osób
+    int people; //ile osób
 
     @OneToMany
     private List<Reservation> reservationList;

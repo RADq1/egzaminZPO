@@ -17,20 +17,23 @@ public class ServiceRap {
         this.roomRepo = roomRepo;
     }
 
-    public List<Room> getAllBooks(){
+    public List<Room> getAllRooms(){
         List<Room> rooms = roomRepo.findAll();
         return rooms;
     }
 
-
-
-
-
-    //private List<Room> rooms = roomRepo.findAll();
+    /*private List<Room> rooms = roomRepo.findAll();
 
     //TODO ALGORYTM ZYSKÓW NA DZIEN
 
     public int getMoney(LocalDate day){
-        return 3;
-    }
+        return this.rooms.stream()
+                .filter(room -> {
+                    room.setAvailable(day,day);
+                    return !room.isAvailable();
+                })
+                .map(room -> room.getPrice())
+                .reduce(0, Integer::sum);
+
+    } */
 }

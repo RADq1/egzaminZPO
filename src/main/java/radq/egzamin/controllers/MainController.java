@@ -4,16 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import radq.egzamin.entity.Room;
 import radq.egzamin.repo.RoomRepo;
+import radq.egzamin.services.ServiceRap;
 
 @Controller
 public class MainController {
 
     @Autowired
     private final RoomRepo roomRepo;
-    public MainController(RoomRepo roomRepo) {
+    private final ServiceRap serviceRap;
+    public MainController(RoomRepo roomRepo, ServiceRap serviceRap) {
         this.roomRepo = roomRepo;
+        this.serviceRap = serviceRap;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -30,4 +35,17 @@ public class MainController {
         roomRepo.save(room4);
         roomRepo.save(room5);
     }
+
+
+    @GetMapping("/")
+    public String hello(){
+        return "home";
+    }
+
+    @GetMapping("/reservation")
+    public String reservationList(Model model, Room room){
+        model.addAttribute("rooms", serviceRap.getAllRooms());
+        return "reservation";
+    }
+
 }
