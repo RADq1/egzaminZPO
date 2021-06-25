@@ -37,20 +37,23 @@ public class ServiceRap {
     }
 
     public List<Room> getAvailableRooms(LocalDate firstDate, LocalDate lastDate){
-        return this.roomRepo.findAll().stream()
+        List <Room> availableRooms = this.roomRepo.findAll().stream()
                 .filter(room -> {
                     room.setAvailable(firstDate, lastDate);
                     return room.isAvailable();
                 })
                 .collect(Collectors.toList());
+        availableRooms.forEach(x-> System.out.println(x.getRoomId()));
+        return availableRooms;
     }
 
-    public boolean isDateFree(LocalDate from, LocalDate to, Room room)
+
+    /*public boolean isDateFree(LocalDate from, LocalDate to, Room room)
     {
         return reservationRepo.findAll().stream()
                 .filter(fr -> fr.getRoom().equals(room))
                 .filter(re -> re.getEndDate().compareTo(from)>0)
                 .filter(ne -> ne.getStartDate().compareTo(to)<0)
                 .anyMatch(fr -> fr.getRoom().equals(room));
-    }
+    } */
 }

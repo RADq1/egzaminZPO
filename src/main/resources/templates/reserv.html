@@ -37,9 +37,11 @@
     <a href="./" >Cofnij</a>
 </div>
 <b><h1>Wybierz datę w której zamierzasz do nas przyjechać, a my zajmiemy się resztą!</h1></b>
-<form th:action="@{'/date'}" th:object="${reservation}" method="post">
-<p>Data rezerwacji: <input type="date" min="2021-06-25" th:field="*{startDate}"></p>
-<p>Data oddania pokoju: <input type="date" min="2021-06-26" th:field="*{endDate}" ></p>
+<form th:action="@{'/date'}" method="post"><!--th:object="${reservation}"-->
+<!--<p>Data rezerwacji: <input type="date" min="2021-06-25" th:field="*{startDate}"></p>
+<p>Data oddania pokoju: <input type="date" min="2021-06-26" th:field="*{endDate}" ></p>-->
+<p>Data rezerwacji: <input type="date" min="2021-06-25" name="startDateString"></p>
+<p>Data oddania pokoju: <input type="date" min="2021-06-26" name="endDateString" ></p>
 <button type="submit">
     Sprawdź twoją ofertę!
 </button>

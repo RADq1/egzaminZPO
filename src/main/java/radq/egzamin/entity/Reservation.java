@@ -35,6 +35,13 @@ public class Reservation {
         this.room = room;
     }
 
+    public Reservation(LocalDate startDate, LocalDate endDate, String email, String firstName, String lastName) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public long getId() {
         return id;

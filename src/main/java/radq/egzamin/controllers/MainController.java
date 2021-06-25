@@ -1,5 +1,6 @@
 package radq.egzamin.controllers;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -14,6 +15,7 @@ import radq.egzamin.repo.RoomRepo;
 import radq.egzamin.services.ServiceRap;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -75,24 +77,10 @@ public class MainController {
         return "accept";
     }
 
-   /* @RequestMapping("/add")
-    public String addKlient(
-            @RequestParam(name = "email") String email,
-            @RequestParam(name = "firstName") String firstName,
-            @RequestParam(name = "lastName") String lastName,
-            @RequestParam(name = "startDate") LocalDate startDate,
-            @RequestParam(name = "endDate") LocalDate endDate,
-            @RequestParam(name = "room") Long room,
-            Model model
-    ){//LocalDate startDate, LocalDate endDate, String email, String firstName, String lastName, Room room
-        reservationRepo.save(new Reservation(email,firstName,lastName, startDate,endDate))
-                return
-    } */
 
     @GetMapping("/date")
     public String dateUrlop(Model model, Reservation reservation){
-
-        model.addAttribute("reservation", reservation);
+        //model.addAttribute("reservation", reservation);
         return "reserv";
     }
 
@@ -106,7 +94,7 @@ public class MainController {
         return "reservation";
     } */
 
-   @PostMapping("/date")
+   /*@PostMapping("/date")
    public String dateUrlops(Model model, Reservation reservation, Room room)
    {
 
@@ -115,8 +103,17 @@ public class MainController {
        System.out.println(reservation.startDate);
        System.out.println(reservation.endDate);
        return "reservation";
+   } */
+   @PostMapping("/date")
+   public String dateUrlops(Model model, @RequestParam String startDateString,
+                            @RequestParam String endDateString)
+   {
+       LocalDate startDate = LocalDate.parse(startDateString);
+       LocalDate endDate = LocalDate.parse(endDateString);
+       List<Room> rooms = serviceRap.getAvailableRooms(startDate, endDate);
+       model.addAttribute("rooms", rooms);
+       return "reservation";
    }
-
 
 
 

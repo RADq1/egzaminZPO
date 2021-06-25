@@ -27,16 +27,21 @@ public class Room {
     public boolean parking; //miejsce parkingowe dla konkretnego pokoju
     public boolean prettyViewFromWindow; //okno z widokem
 
-   /* //na podstawie rezerwacji w bazie danych sprawdza, czy pokój jest w dniu dzisiejszym dostępny
-    public void setAvailable(LocalDate firstDay, LocalDate LastDay){
-        this.available = this.reservationList.stream()
-                .anyMatch(reservation -> reservation.getStartDate()
-                                .isBefore(firstDay) && reservation.getEndDate().isAfter(LastDay));
-        //System.out.println(firstDay);
-        //System.out.println(LastDay);
-        System.out.println(reservationList);
-    } */
-   public void setAvailable(LocalDate firstDay, LocalDate LastDay){
+
+
+
+     //na podstawie rezerwacji w bazie danych sprawdza, czy pokój jest w dniu dzisiejszym dostępny
+     public void setAvailable(LocalDate firstDay, LocalDate LastDay){
+         this.available = this.reservationList.stream()
+                 .allMatch(reservation -> (LastDay.isBefore(reservation.getStartDate()) || firstDay.isAfter(reservation.getEndDate())));
+
+                 //.anyMatch(reservation -> reservation.getStartDate()
+                                // .isBefore(firstDay) && reservation.getEndDate().isAfter(LastDay));
+         //System.out.println(firstDay);
+         //System.out.println(LastDay);
+         System.out.println(reservationList);
+     }
+   /*public void setAvailable(LocalDate firstDay, LocalDate LastDay){
        this.available = this.reservationList.stream()
                .anyMatch(reservation -> (firstDay.isBefore(reservation.getStartDate()) &&
                                LastDay.isBefore((reservation.getStartDate())) ||
@@ -45,12 +50,22 @@ public class Room {
        //System.out.println(firstDay);
        //System.out.println(LastDay);
        System.out.println(reservationList);
-   }
+   } */
 
     public Room() {
     }
 
     public Room(int people, int price, boolean available, boolean petsFriendly, boolean canSmoke, boolean parking, boolean prettyViewFromWindow) {
+        this.people = people;
+        this.price = price;
+        this.available = available;
+        this.petsFriendly = petsFriendly;
+        this.canSmoke = canSmoke;
+        this.parking = parking;
+        this.prettyViewFromWindow = prettyViewFromWindow;
+    }
+    public Room(Long roomId, int people, int price, boolean available, boolean petsFriendly, boolean canSmoke, boolean parking, boolean prettyViewFromWindow) {
+        this.roomId = roomId;
         this.people = people;
         this.price = price;
         this.available = available;
