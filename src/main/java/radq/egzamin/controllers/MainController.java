@@ -79,13 +79,22 @@ public class MainController {
         return "reserv";
     }
 
-    @PostMapping("/date")
+   @PostMapping("/date")
     public String dateUrlops(Model model, LocalDate firstDate, LocalDate lastDate)
     {
-        model.addAttribute("reservation", serviceRap.getAvailableRooms(firstDate, lastDate));
+        model.addAttribute("rooms", serviceRap.getAvailableRooms(firstDate, lastDate));
+        System.out.println(firstDate);
+        System.out.println(lastDate);
         return "reservation";
     }
-
+   /*@PostMapping("/date")
+   public String dateUrlops(Model model, Reservation reservation)
+   {
+       model.addAttribute("reservation", serviceRap.getAvailableRooms(reservation.startDate, reservation.endDate));
+       System.out.println(reservation.startDate);
+       System.out.println(reservation.endDate);
+       return "reservation";
+   } */
 
 
 }
